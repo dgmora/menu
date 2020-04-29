@@ -1,0 +1,43 @@
+version: '3'
+services:
+  database:
+    image: postgres
+    environment:
+      LC_ALL: C.UTF-8
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DBNAME: docker
+    volumes:
+      # In other postgres images this should point to postgresql/data, but with the current one that doesn't work
+      - dbdata:/var/lib/postgresql
+  app: &app
+    command: "puma -C config/puma.rb"
+    tty: true
+    stdin_open: true
+    user: root
+    depends_on:
+      - database
+    image: dgmora/menu
+    ports:
+      - '3000:3000'
+    links:
+      - database
+    volumes:
+      - .:/home/app/rails:cached
+      - bundler-cache:/usr/local/bundle
+      - /usr/src/app/node_modules
+    environment: &app_environment
+      DATABASE_HOST: database
+      DATABASE_NAME: docker
+      DATABASE_PASSWORD: docker
+      DATABASE_USERNAME: root
+      LC_ALL: C.UTF-8
+      PGDATABASE: docker
+      PGHOST: database
+      PGPASSWORD: docker
+      PGUSER: root
+      RAILS_ENV: development
+volumes:
+  bundler-cache:
+  dbdata:
+    external: true
