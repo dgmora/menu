@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Today's menu</h1>
+
+<table>
+  <tbody>
+    <% @recipes.each_entry do |recipe| %>
+      <tr>
+        <td><%= link_to(recipe.title, recipe_url(recipe)) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
