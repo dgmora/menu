@@ -18,11 +18,6 @@ Layout/MultilineMethodCallIndentation:
   Exclude:
     - "spec/**/*.rb"
 
-Layout/AlignHash:
-  EnforcedColonStyle:
-    - table
-    - key
-
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - "spec/**/*.rb"
