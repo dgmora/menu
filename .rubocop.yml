@@ -1,0 +1,77 @@
+require:
+  - rubocop-rspec
+  - rubocop-rails
+  - rubocop-performance
+
+AllCops:
+  TargetRubyVersion: 2.7
+  Exclude:
+    - 'bin/*'
+    - 'db/migrate/**'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - 'vendor/**/*'
+    - Guardfile
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: aligned
+  Exclude:
+    - "spec/**/*.rb"
+
+Layout/AlignHash:
+  EnforcedColonStyle:
+    - table
+    - key
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - "spec/**/*.rb"
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - 'config/routes.rb'
+    - 'vendor/**/*'
+
+Metrics/MethodLength:
+  Max: 10
+  CountComments: false
+
+Rails:
+  Enabled: true
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - staging
+    - test
+    - production
+
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/ImplicitSubject:
+  Enabled: false
+
+RSpec/ImplicitBlockExpectation:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
+Style/Documentation:
+  Enabled: false
