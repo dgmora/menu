@@ -27,6 +27,7 @@ services:
       - bundler-cache:/usr/local/bundle
       - /usr/src/app/node_modules
     environment: &app_environment
+      RUBYOPT: '-W:no-deprecated -W:no-experimental' # Avoid 2.7 warnings
       DATABASE_HOST: database
       DATABASE_NAME: docker
       DATABASE_PASSWORD: docker

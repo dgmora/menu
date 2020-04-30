@@ -11,6 +11,7 @@ AllCops:
     - 'db/schema.rb'
     - 'db/seeds.rb'
     - 'vendor/**/*'
+    - 'node_modules/**/*'
     - Guardfile
 
 Layout/MultilineMethodCallIndentation:
@@ -67,6 +68,9 @@ RSpec/ImplicitBlockExpectation:
 
 RSpec/NestedGroups:
   Max: 4
+
+RSpec/VerifiedDoubles:
+  Enabled: false
 
 Style/Documentation:
   Enabled: false

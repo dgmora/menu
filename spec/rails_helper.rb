@@ -3,6 +3,14 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
+
+# It seems these are not required within contentful_model, so
+# Contentful::Asset isn't properly loaded without this require
+require 'contentful/version'
+require 'contentful/asset'
+require 'contentful/client'
+require 'webmock/rspec'
+
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
@@ -26,20 +34,17 @@ require 'rspec/rails'
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
-
-RSpec.configure do |config|
-  config.include FactoryBot::Syntax::Methods
-end
-
-begin
-  ActiveRecord::Migration.maintain_test_schema!
-rescue ActiveRecord::PendingMigrationError => e
-  puts e.to_s.strip
-  exit 1
-end
+# begin
+#   ActiveRecord::Migration.maintain_test_schema!
+# rescue ActiveRecord::PendingMigrationError => e
+#   puts e.to_s.strip
+#   exit 1
+# end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+
+  config.include FactoryBot::Syntax::Methods
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -68,4 +73,19 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+end
+
+WebMock.disable_net_connect!(allow_localhost: true)
+
+VCR.configure do |config|
+  config.hook_into :webmock
+  config.configure_rspec_metadata!
+  config.cassette_library_dir = 'vcr_cassettes'
+  contentful_config = Rails.application.credentials.fetch(:contentful)
+  config.filter_sensitive_data('<SPACE_ID>') do |_interaction|
+    contentful_config.fetch(:space_id)
+  end
+  config.filter_sensitive_data('<ACCESS_TOKEN>') do |_interaction|
+    contentful_config.fetch(:access_token)
+  end
 end

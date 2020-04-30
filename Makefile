@@ -1,5 +1,5 @@
-build: 
-	@docker build --no-cache -t dgmora/menu .
+build:
+	@docker build -t dgmora/menu .
 
 clean:
 	@docker-compose down -v --remove-orphans
@@ -18,7 +18,7 @@ fresh:
 	@docker-compose run app bundle exec rake db:create db:schema:load db:migrate db:seed db:test:prepare
 
 guard:
-	@docker-compose run --rm app bundle exec guard
+	@docker-compose run --rm  -e "RAILS_ENV=test" app bundle exec guard
 
 init: clean build fresh
 
@@ -26,7 +26,7 @@ shell:
 	@docker-compose exec app bash || docker-compose run --rm app bash
 
 test:
-	@docker-compose run --rm app bundle exec rspec
+	@docker-compose run --rm  -e "RAILS_ENV=test" app bundle exec rspec
 
 server:
 	@docker-compose up
