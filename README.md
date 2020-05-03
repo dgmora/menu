@@ -91,3 +91,5 @@ I did not want to complicate myself with adding a decorator gem or similar.
 I think it's possible in the Contentful gems to enable caching, but I did not dig further.
 
 `ContentfulModel` also has support for paging, which could also be added.
+
+I had a few more commits but I had to remove them to filter the organization id from the VCR cassettes.
