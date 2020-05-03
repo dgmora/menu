@@ -1,6 +1,6 @@
 # Menu
 
-This Rails app displays receipes stored in Contentful
+This Rails app displays receipes stored in Contentful. You can see a quick demo [here](https://drive.google.com/file/d/1z8dF0cLcHgFpBjEJnadNL6NR1hVN-I0O/view?usp=sharing)
 
 
 ## Running it
