@@ -88,4 +88,10 @@ VCR.configure do |config|
   config.filter_sensitive_data('<ACCESS_TOKEN>') do |_interaction|
     contentful_config.fetch(:access_token)
   end
+  config.filter_sensitive_data('<ENV_UUID>') do |interaction|
+    interaction.response.headers['Cf-Environment-Uuid'].first
+  end
+  config.filter_sensitive_data('<ORGANIZATION_ID>') do |interaction|
+    interaction.response.headers['Cf-Organization-Id'].first
+  end
 end

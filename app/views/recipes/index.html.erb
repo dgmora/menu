@@ -6,6 +6,7 @@
   <tbody>
     <% @recipes.each_entry do |recipe| %>
       <tr>
+        <td><%= image_tag(photo_thumbnail_url(recipe)) %> </td>
         <td><%= link_to(recipe.title, recipe_url(recipe)) %></td>
       </tr>
     <% end %>

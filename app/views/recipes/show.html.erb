@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+<h1> <%= @recipe.title %> </h1>
+</p>
+
+<p>
+  <%= image_tag(photo_header_url(@recipe)) %>
+</p>
+
+<p>
+  <%= tag_list(@recipe) %>
+</p>
+<p>
+  <%= info(@recipe) %></strong>
+</p>
+
+
+<p>
+<%= parse_markdown(@recipe.description) %>
+</p>
+
+<%= link_to 'Back', recipes_path %>
